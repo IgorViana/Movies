@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.android.movies.model.Movie
 import com.example.android.movies.model.MovieResult
-import com.example.android.movies.retrofit.RetrofitBuilder
+import com.example.android.movies.webService.RetrofitBuilder
 import retrofit2.Call
 import retrofit2.Response
 

@@ -1,4 +1,4 @@
-package com.example.android.movies.retrofit
+package com.example.android.movies.webService
 
 
 import com.example.android.movies.model.Movie
