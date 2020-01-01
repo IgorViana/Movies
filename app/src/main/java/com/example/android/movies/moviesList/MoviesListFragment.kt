@@ -1,4 +1,4 @@
-package com.example.android.movies
+package com.example.android.movies.moviesList
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,9 +9,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.android.movies.R
 import com.example.android.movies.model.Movie
 import com.example.android.movies.model.MovieResult
-import com.example.android.movies.recyclerView.MoviesListAdapter
+import com.example.android.movies.adapter.MoviesListAdapter
 import kotlinx.android.synthetic.main.fragment_movieslist.view.*
 
 class MoviesListFragment : Fragment() {

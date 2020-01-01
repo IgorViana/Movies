@@ -2,7 +2,7 @@ package com.example.android.movies
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.FragmentManager
+import com.example.android.movies.moviesList.MoviesListFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -12,7 +12,9 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager
             .beginTransaction()
-            .add(R.id.moviesList, MoviesListFragment())
+            .add(R.id.moviesList,
+                MoviesListFragment()
+            )
             .commit()
     }
 }
