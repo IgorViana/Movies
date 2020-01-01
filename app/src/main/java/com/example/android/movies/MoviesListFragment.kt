@@ -7,28 +7,55 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.android.movies.model.Movie
+import com.example.android.movies.model.MovieResult
+import com.example.android.movies.recyclerView.MoviesListAdapter
 import kotlinx.android.synthetic.main.fragment_movieslist.view.*
 
 class MoviesListFragment : Fragment() {
-    private lateinit var model: MoviesListView
+    private lateinit var model: MoviesListViewModel
+    private lateinit var mLayoutManager: LinearLayoutManager
+    private lateinit var mAdapter: MoviesListAdapter
+    private lateinit var mRecyclerView: RecyclerView
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val view = inflater.inflate(R.layout.fragment_movieslist, container, false)
-        view.movieList_title.text = "Estou no fragment"
-        model = ViewModelProviders.of(this).get(MoviesListView::class.java)
+        model = ViewModelProviders.of(this).get(MoviesListViewModel::class.java)
+        setMoviesListRecyclerView(view)
 
-        val observer = Observer<Movie> {
+        model.movieLiveData.observe(this, Observer<Movie> {
             view.movieList_title.text = it.title
-        }
-        model.movieLiveData.observe(this, observer)
+        })
 
-        view.botaoTeste.setOnClickListener { model.searchLatestMovie() }
+        model.movieListLiveData.observe(this, Observer<MovieResult> { response ->
+            mAdapter.updateData(response.results)
+        })
+
+        view.botaoTeste.setOnClickListener {
+            model.searchLatestMovie()
+            model.searchMostPopularMovies()
+        }
+
         return view
+    }
+
+    private fun setMoviesListRecyclerView(view: View) {
+        mRecyclerView = view.findViewById(R.id.movieList_listPopularMovies)
+        mLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        mAdapter = MoviesListAdapter(listOf())
+
+        with(mRecyclerView) {
+            layoutManager = mLayoutManager
+            adapter = mAdapter
+        }
     }
 
 }
