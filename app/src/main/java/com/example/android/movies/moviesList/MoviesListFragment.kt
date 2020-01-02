@@ -16,6 +16,7 @@ import com.example.android.movies.adapter.MoviesListAdapter
 import kotlinx.android.synthetic.main.fragment_movieslist.view.*
 
 class MoviesListFragment : Fragment() {
+
     private lateinit var model: MoviesListViewModel
     private lateinit var mLayoutManager: LinearLayoutManager
     private lateinit var mAdapter: MoviesListAdapter
@@ -30,6 +31,7 @@ class MoviesListFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_movieslist, container, false)
         model = ViewModelProviders.of(this).get(MoviesListViewModel::class.java)
+
         setMoviesListRecyclerView(view)
 
         model.movieLiveData.observe(this, Observer<Movie> {
@@ -58,6 +60,5 @@ class MoviesListFragment : Fragment() {
             adapter = mAdapter
         }
     }
-
 }
 

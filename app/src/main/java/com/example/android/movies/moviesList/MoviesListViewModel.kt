@@ -11,8 +11,6 @@ import retrofit2.Response
 
 class MoviesListViewModel : ViewModel() {
 
-    val API_KEY = "770e90d78673c82ce8fe6e01a71e7948"
-
     val movieListLiveData: MutableLiveData<MovieResult> by lazy {
         MutableLiveData<MovieResult>()
     }
@@ -25,7 +23,7 @@ class MoviesListViewModel : ViewModel() {
     fun searchMostPopularMovies() {
         val call = RetrofitBuilder()
             .movieService()
-            .getPopularMovies(API_KEY)
+            .getPopularMovies()
 
         call.enqueue(object : retrofit2.Callback<MovieResult> {
             override fun onFailure(call: Call<MovieResult>, t: Throwable) {
@@ -41,7 +39,7 @@ class MoviesListViewModel : ViewModel() {
     fun searchLatestMovie() {
         val call = RetrofitBuilder()
             .movieService()
-            .getLatestMovie(API_KEY)
+            .getLatestMovie()
 
         call.enqueue(object : retrofit2.Callback<Movie> {
             override fun onFailure(call: Call<Movie>, t: Throwable) {
