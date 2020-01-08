@@ -3,7 +3,7 @@ package com.example.android.movies.webService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RetrofitBuilder {
+class RetrofitFactory {
 
     private val retrofit = Retrofit.Builder()
         .baseUrl("https://api.themoviedb.org/3/")
