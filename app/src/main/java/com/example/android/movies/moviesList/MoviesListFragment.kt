@@ -10,9 +10,8 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android.movies.R
-import com.example.android.movies.model.Movie
-import com.example.android.movies.model.MovieResult
 import com.example.android.movies.adapter.MoviesListAdapter
+import com.example.android.movies.model.Movie
 import kotlinx.android.synthetic.main.fragment_movieslist.view.*
 
 class MoviesListFragment : Fragment() {
@@ -34,31 +33,25 @@ class MoviesListFragment : Fragment() {
 
         setMoviesListRecyclerView(view)
 
-        model.movieLiveData.observe(this, Observer<Movie> {
-            view.movieList_title.text = it.title
-        })
-
-        model.movieListLiveData.observe(this, Observer<MovieResult> { response ->
-            mAdapter.updateData(response.results)
-        })
-
         view.botaoTeste.setOnClickListener {
-            model.searchLatestMovie()
             model.searchMostPopularMovies()
         }
-
         return view
     }
 
     private fun setMoviesListRecyclerView(view: View) {
         mRecyclerView = view.findViewById(R.id.movieList_listPopularMovies)
         mLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        mAdapter = MoviesListAdapter(listOf())
+        mAdapter = MoviesListAdapter()
 
         with(mRecyclerView) {
             layoutManager = mLayoutManager
             adapter = mAdapter
         }
+
+        model.movieListLiveData.observe(this, Observer{
+            mAdapter.submitList(it)
+        })
     }
 }
 

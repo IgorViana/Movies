@@ -1,53 +1,48 @@
 package com.example.android.movies.moviesList
 
+import android.app.Application
+import android.util.Log
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.paging.PagedList
+import androidx.room.Room
+import com.example.android.movies.database.AppDatabase
 import com.example.android.movies.model.Movie
 import com.example.android.movies.model.MovieResult
-import com.example.android.movies.webService.RetrofitBuilder
+import com.example.android.movies.repository.MoviesListRepository
+import com.example.android.movies.webService.RetrofitFactory
 import retrofit2.Call
 import retrofit2.Response
 
 
-class MoviesListViewModel : ViewModel() {
+class MoviesListViewModel(application: Application) : AndroidViewModel(application) {
 
-    val movieListLiveData: MutableLiveData<MovieResult> by lazy {
-        MutableLiveData<MovieResult>()
+    private val repository: MoviesListRepository
+
+    val movieListLiveData: LiveData<PagedList<Movie>>
+
+    init {
+        val db = AppDatabase.getDatabase(getApplication())
+        repository = MoviesListRepository(db.movieDao())
+        movieListLiveData = repository.allMovies
     }
-
-    val movieLiveData: MutableLiveData<Movie> by lazy {
-        MutableLiveData<Movie>()
-    }
-
 
     fun searchMostPopularMovies() {
-        val call = RetrofitBuilder()
+
+        val call = RetrofitFactory()
             .movieService()
             .getPopularMovies()
 
         call.enqueue(object : retrofit2.Callback<MovieResult> {
-            override fun onFailure(call: Call<MovieResult>, t: Throwable) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-
             override fun onResponse(call: Call<MovieResult>, response: Response<MovieResult>) {
-                movieListLiveData.postValue(response.body())
-            }
-        })
-    }
-
-    fun searchLatestMovie() {
-        val call = RetrofitBuilder()
-            .movieService()
-            .getLatestMovie()
-
-        call.enqueue(object : retrofit2.Callback<Movie> {
-            override fun onFailure(call: Call<Movie>, t: Throwable) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                if (response.isSuccessful) {
+                    //repository.insert(response.body()!!.results)
+                }
             }
 
-            override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
-                movieLiveData.postValue(response.body())
+            override fun onFailure(call: Call<MovieResult>, t: Throwable) {
+                Log.e("ERROR", t.message ?: "")
             }
         })
     }

@@ -12,9 +12,9 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager
             .beginTransaction()
-            .add(R.id.moviesList,
+            .replace(
+                R.id.moviesList,
                 MoviesListFragment()
-            )
-            .commit()
+            ).commit()
     }
 }
