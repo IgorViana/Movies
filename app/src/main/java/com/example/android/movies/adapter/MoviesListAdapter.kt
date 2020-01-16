@@ -12,8 +12,8 @@ import com.bumptech.glide.Glide
 import com.example.android.movies.R
 import com.example.android.movies.model.Movie
 
-class MoviesListAdapter :
-    PagedListAdapter<Movie, MoviesListAdapter.MyViewHolder>(DIFF_CALLBACK) {
+class MoviesListAdapter(private val movieListener: MovieListClickListener?)
+    : PagedListAdapter<Movie, MoviesListAdapter.MyViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
 
@@ -30,6 +30,7 @@ class MoviesListAdapter :
         fun bindTo(movie: Movie?) {
 
             if (movie != null) {
+
                 Glide.with(view)
                     .load("https://image.tmdb.org/t/p/w500/${movie.posterPath}")
                     .centerCrop()
@@ -44,6 +45,10 @@ class MoviesListAdapter :
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val movie: Movie? = getItem(position)
         holder.bindTo(movie)
+        holder.itemView.setOnClickListener {
+            movieListener?.onMovieClicked(movie!!)
+        }
+
     }
 
     companion object {

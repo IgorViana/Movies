@@ -1,7 +1,7 @@
 package com.example.android.movies
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.example.android.movies.moviesList.MoviesListFragment
 
 class MainActivity : AppCompatActivity() {
@@ -10,11 +10,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        supportFragmentManager
-            .beginTransaction()
-            .replace(
-                R.id.moviesList,
-                MoviesListFragment()
-            ).commit()
+        if(savedInstanceState == null){
+            supportFragmentManager
+                .beginTransaction()
+                .replace(
+                    R.id.moviesList,
+                    MoviesListFragment()
+                ).commit()
+        }
     }
 }
