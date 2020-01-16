@@ -2,4 +2,5 @@
     <string name="app_name">Movies</string>
     <string name="cover_content_description">Image of the movie cover</string>
     <string name="popular_movies_category">Popular movies</string>
+    <string name="upcoming_movies_category">Upcoming movies</string>
 </resources>

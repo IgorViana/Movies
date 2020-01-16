@@ -1,27 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/botaoTeste"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:text="Change values" />
-
-    <TextView
-        android:id="@+id/movieList_popular_category"
-        style="@style/TextCategory"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/popular_movies_category" />
+        android:orientation="vertical">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/movieList_listPopularMovies"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp" />
+        <TextView
+            android:id="@+id/movieList_popular_category"
+            style="@style/TextCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/popular_movies_category" />
 
-</LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/movieList_listPopularMovies"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp" />
+
+        <ProgressBar
+            android:id="@+id/progressBarPopularMovies"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true" />
+
+        <TextView
+            android:id="@+id/movieList_upcoming_category"
+            style="@style/TextCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/upcoming_movies_category" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/movieList_listUpcomingMovies"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp" />
+
+        <ProgressBar
+            android:id="@+id/progressBarUpcomingMovies"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true" />
+
+        <Button
+            android:id="@+id/loadGenres"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Carregar generos" />
+
+    </LinearLayout>
+
+</ScrollView>
